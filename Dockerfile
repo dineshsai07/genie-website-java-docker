@@ -4,5 +4,5 @@ FROM ubuntu
 # Update the package lists
 RUN apt-get update
 
-# hjh NGINX
+# hjh NG
 RUN apt-get install -y nginx
