@@ -2,7 +2,7 @@
 
 ## Prerequisite
 
-- JDK 17 or above
+- JDK 17 or abov
 - Spring Tool Suite for Eclipse
 - Docker Desktop
 
