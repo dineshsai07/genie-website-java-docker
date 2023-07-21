@@ -1,8 +1,34 @@
-# Use the official Ubuntu base image
-FROM ubuntu
+FROM node:14-slim
 
-# Update the package liss
-RUN apt-get update
+# Install dependencies
+RUN apt-get update \
+    && apt-get install -y wget gnupg ca-certificates \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-# hjh NG
-RUN apt-get install -y nginx
+# Set the Puppeteer environment variables
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
+
+# Set the container to run with the unprivileged user
+USER node
+
+# Set up the app directory
+WORKDIR /usr/bluepen-capture-server
+
+# Copy app source
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Add additional flags and configurations when launching Puppeteer
+ENV PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-namespace-sandbox"
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
