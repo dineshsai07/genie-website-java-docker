@@ -1,6 +1,6 @@
 FROM node:14-slim
 
-# Install dependenden
+# Install dependendencies
 RUN apt-get update \
     && apt-get install -y wget gnupg ca-certificates \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
