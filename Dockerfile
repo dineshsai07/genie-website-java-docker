@@ -24,7 +24,7 @@ WORKDIR /usr/bluepen-capture-server
 COPY . .
 
 # Install dependencies
-RUN npm install -g --unsafe-perm=true --allow-root
+RUN npm install --unsafe-perm=true --allow-root
 
 # Add additional flags and configurations when launching Puppeteer
 ENV PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-namespace-sandbox"
