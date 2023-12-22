@@ -1,4 +1,4 @@
-# How to Build the First containerized java web application
+# How to Build the First containerized java web application:
 
 ## Prerequisite
 
